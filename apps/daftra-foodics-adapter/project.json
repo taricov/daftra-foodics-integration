@@ -1,0 +1,64 @@
+{
+  "name": "daftra-foodics-adapter",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/daftra-foodics-adapter/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/daftra-foodics-adapter",
+        "main": "apps/daftra-foodics-adapter/src/main.ts",
+        "tsConfig": "apps/daftra-foodics-adapter/tsconfig.app.json",
+        "assets": ["apps/daftra-foodics-adapter/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/daftra-foodics-adapter/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "daftra-foodics-adapter:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "daftra-foodics-adapter:build:development"
+        },
+        "production": {
+          "buildTarget": "daftra-foodics-adapter:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/daftra-foodics-adapter/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/daftra-foodics-adapter/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
